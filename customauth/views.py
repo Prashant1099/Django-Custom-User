@@ -3,10 +3,12 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 
 def home(request):
-    return HttpResponse('<h1>This is Home Page</h1>')
+    context = {}
+
+    return render(request, 'base.html', context)
 
 def register_user(request):
     form = UserCreationForm()
@@ -47,3 +49,6 @@ def login_user(request):
 
     return render(request, 'login.html', context)
 
+def logout_user(request):
+    logout(request)
+    return redirect('Home')
